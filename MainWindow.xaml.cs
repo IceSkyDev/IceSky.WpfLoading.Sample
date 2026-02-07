@@ -157,9 +157,9 @@ namespace IceSky.WpfLoading.Sample
             try
             {
                 var xamlBuilder = new StringBuilder();
-                xamlBuilder.AppendLine("<local:GradientLoadingControl");
-                AppendPropIfNotDefault(xamlBuilder, "ItemWidth", Math.Round(loadingControl.ItemWidth, 1), defaultValue.RectWidth);
-                AppendPropIfNotDefault(xamlBuilder, "ItemHeight", Math.Round(loadingControl.ItemHeight, 1), defaultValue.RectHeight);
+                xamlBuilder.AppendLine("<anim:GradientLoadingControl");
+                AppendPropIfNotDefault(xamlBuilder, "ItemWidth", Math.Round(loadingControl.ItemWidth, 1), defaultValue.ItemWidth);
+                AppendPropIfNotDefault(xamlBuilder, "ItemHeight", Math.Round(loadingControl.ItemHeight, 1), defaultValue.ItemHeight);
                 AppendPropIfNotDefault(xamlBuilder, "CornerRadius", Math.Round(loadingControl.CornerRadius, 1), defaultValue.CornerRadius);
                 AppendPropIfNotDefault(xamlBuilder, "Count", (double)loadingControl.Count, defaultValue.Count);
                 AppendPropIfNotDefault(xamlBuilder, "Spacing", Math.Round(loadingControl.Spacing, 1), defaultValue.Spacing);
@@ -172,7 +172,7 @@ namespace IceSky.WpfLoading.Sample
                 AppendPropIfNotDefault(xamlBuilder, "InnerRadius", Math.Round(loadingControl.InnerRadius, 1), defaultValue.InnerRadius);
                 AppendPropIfNotDefault(xamlBuilder, "IsRingRotation", loadingControl.IsRingRotation, defaultValue.IsRingRotation);
                 AppendPropIfNotDefault(xamlBuilder, "RingRotationSpeed", Math.Round(loadingControl.RingRotationSpeed, 1), defaultValue.RotationSpeed);
-                AppendPropIfNotDefault(xamlBuilder, "IsDiscreteRotation", loadingControl.IsDiscreteRotation, defaultValue.IsDiscreteRingRotation);
+                AppendPropIfNotDefault(xamlBuilder, "IsDiscreteRotation", loadingControl.IsDiscreteRotation, defaultValue.IsDiscreteRotation);
                 AppendPropIfNotDefault(xamlBuilder, "DiscreteRotateStepTime", Math.Round(loadingControl.DiscreteRotateStepTime, 1), defaultValue.DiscreteStepTime);
                 AppendPropIfNotDefault(xamlBuilder, "IsItemRotateAnimation", loadingControl.IsItemRotateAnimation, defaultValue.IsItemRotate);
                 AppendPropIfNotDefault(xamlBuilder, "ItemRotateSpeed", Math.Round(loadingControl.ItemRotateSpeed, 1), defaultValue.ItemRotateSpeed);
