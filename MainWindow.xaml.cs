@@ -57,7 +57,8 @@ namespace IceSky.WpfLoading.Sample
             cbDark.Checked += (o, e) => { bdBg.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333")); cbDark.Foreground = Brushes.WhiteSmoke; };
             cbDark.Unchecked += (o, e) => { bdBg.Background = Brushes.White; cbDark.Foreground = Brushes.Black; };
 
-            loading.ItemsSource = Enumerable.Range(1, 10);
+            aicEdge.ItemsSource = Enumerable.Range(1, 12).Select(i => (char)(i + 64));
+            aicGrid.ItemsSource = Enumerable.Range(1, 30).Select(i => i.ToString());
             maskPanel.Opened += (o, e) => { tbMsg.Text = $"Opend at {DateTime.Now}"; };
         }
         #region MaskTest
@@ -69,24 +70,8 @@ namespace IceSky.WpfLoading.Sample
 
         private void ShowMask_Click(object sender, RoutedEventArgs e)
         {
+            txtElapsedTime.Text = "";
             maskPanel.Open();
-        }
-        private void TaskTimeout_Click(object sender, RoutedEventArgs e)
-        {
-            var st = DateTime.Now;
-            var taskCts = new CancellationTokenSource();
-            var d = int.Parse(txtTaskSeconds.Text);
-            var task = Task.Run(async () =>
-            {
-                var time = (int)DateTime.Now.Subtract(st).TotalSeconds;
-                while (time < d)
-                {
-                    time = (int)DateTime.Now.Subtract(st).TotalSeconds;
-                    Dispatcher.Invoke(() => tbTime.Text = time.ToString());
-                    await Task.Delay(100);
-                }
-            }, taskCts.Token);
-            maskPanel.OpenWithTask(task, taskCts, uint.Parse(txtTimeoutMs.Text));
         }
         private void ExecuteTask_Click(object sender, RoutedEventArgs e)
         {
@@ -95,16 +80,17 @@ namespace IceSky.WpfLoading.Sample
             var d = int.Parse(txtTaskSeconds.Text);
             var task = Task.Run(async () =>
             {
-                var time = (int)DateTime.Now.Subtract(st).TotalSeconds;
-                while (time < d)
+                var time = DateTime.Now.Subtract(st);
+                while (time.TotalSeconds < d && !taskCts.IsCancellationRequested)
                 {
-                    time = (int)DateTime.Now.Subtract(st).TotalSeconds;
-                    Dispatcher.Invoke(() => tbTime.Text = time.ToString());
+                    time = DateTime.Now.Subtract(st);
+                    Dispatcher.Invoke(() => txtElapsedTime.Text = $"{time:hh\\:mm\\:ss}");
                     await Task.Delay(100);
                 }
             }, taskCts.Token);
             maskPanel.OpenWithTask(task, taskCts, uint.Parse(txtTimeoutMs.Text));
         }
+
         private void CancelTask_Click(object sender, RoutedEventArgs e)
         {
             // 方式1：普通关闭（自动取消任务）
@@ -115,7 +101,7 @@ namespace IceSky.WpfLoading.Sample
         }
         private void MaskPanel_TaskCancelled(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("操作已取消，任务已终止！");
+            MessageBox.Show("操作已取消，任务终止！");
         }
         private void MaskPanel_TaskCompleted(object sender, RoutedEventArgs e)
         {
@@ -208,11 +194,11 @@ namespace IceSky.WpfLoading.Sample
                 var code = xamlBuilder.ToString().TrimEnd() + "/>";
 
                 Clipboard.SetText(code);
-                MessageBox.Show("控件代码已复制到剪贴板！", "复制成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Code copied！", "复制成功", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"复制失败：{ex.Message}", "复制失败", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Copy failed：{ex.Message}", "复制失败", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 

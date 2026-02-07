@@ -7,13 +7,14 @@
         xmlns:system="clr-namespace:System;assembly=netstandard" 
         xmlns:anim="clr-namespace:IceSky.WpfLoading.Animations;assembly=IceSky.WpfLoading" 
         xmlns:control="clr-namespace:IceSky.WpfLoading;assembly=IceSky.WpfLoading"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="IceSky Loading Sample" Height="600" Width="820" Icon="/logo.ico">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/IceSky.WpfLoading;component/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="b2vConverter"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid Background="#F8FAFC">
@@ -30,6 +31,9 @@
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="Width" Value="40"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <Style TargetType="Separator">
@@ -423,60 +427,51 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Width="200" Background="White" Margin="5">
-                        <StackPanel Margin="20" VerticalAlignment="Top">
-                            <TextBlock Text="遮罩层参数设置" FontSize="16" FontWeight="Bold" Margin="0 0 0 20"/>
+                        <StackPanel Margin="10" VerticalAlignment="Top">
+                            <TextBlock Text="遮罩层设置" FontSize="16" FontWeight="Bold" Margin="0 0 0 10"/>
 
-                            <StackPanel Margin="0 0 0 15">
+                            <StackPanel Orientation="Horizontal" Margin="0 10">
                                 <TextBlock Text="模糊半径" FontSize="12" Foreground="#333"/>
-                                <Grid Margin="0 5 0 0">
-                                    <Slider x:Name="sldBlurRadius" Minimum="0" Maximum="30" Value="10" 
-                                Width="100" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="txtBlurRadius" Text="{Binding ElementName=sldBlurRadius,Path=Value}" 
-                                   Margin="110 0 0 0" VerticalAlignment="Center" Width="30"/>
-                                </Grid>
+                                <Slider x:Name="sldBlurRadius" Minimum="0" Maximum="30" Value="10" Width="80"/>
+                                <TextBlock x:Name="txtBlurRadius" Text="{Binding ElementName=sldBlurRadius,Path=Value,StringFormat=0}" 
+                                   VerticalAlignment="Center"/>
                             </StackPanel>
 
-                            <StackPanel Margin="0 0 0 15">
-                                <TextBlock Text="遮罩透明度" FontSize="12" Foreground="#333"/>
-                                <Grid Margin="0 5 0 0">
-                                    <Slider x:Name="sldMaskOpacity" Minimum="0" Maximum="1" Value="0.7" 
-                                Width="100" VerticalAlignment="Center" TickFrequency="0.1"/>
-                                    <TextBlock x:Name="txtMaskOpacity" Text="{Binding ElementName=sldMaskOpacity,Path=Value}" 
-                                   Margin="110 0 0 0" VerticalAlignment="Center" Width="30"/>
-                                </Grid>
+                            <StackPanel Orientation="Horizontal" Margin="0 10">
+                                <TextBlock Text="不透明度" FontSize="12" Foreground="#333"/>
+                                <Slider x:Name="sldMaskOpacity" Minimum="0" Maximum="1" Value="0.7" 
+                                Width="80" TickFrequency="0.1" LargeChange="0.5"/>
+                                <TextBlock x:Name="txtMaskOpacity" Text="{Binding ElementName=sldMaskOpacity,Path=Value,StringFormat=0.0}" 
+                                   VerticalAlignment="Center"/>
                             </StackPanel>
 
-                            <StackPanel Margin="0 0 0 15">
+                            <StackPanel Orientation="Horizontal" Margin="0 10">
                                 <TextBlock Text="遮罩颜色" FontSize="12" Foreground="#333"/>
-                                <TextBox x:Name="tbColorMsk" Width="100" Text="#FF4A90E2" Margin="5 0"></TextBox>
+                                <TextBox x:Name="tbColorMsk" Width="80" Text="#FF4A90E2" Margin="10 0 5 0"></TextBox>
                                 <Border x:Name="bdColorMsk" Width="24" Height="20" BorderThickness="1" BorderBrush="#333" Background="{Binding ElementName=tbColorMsk,Path=Text}"/>
                             </StackPanel>
 
-                            <StackPanel Margin="0 0 0 15">
+                            <StackPanel Orientation="Horizontal" Margin="0 10">
                                 <TextBlock Text="超时时间(毫秒)" FontSize="12" Foreground="#333"/>
-                                <TextBox x:Name="txtTimeoutMs" Text="8000" Width="100" Margin="0 5 0 0">
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=UpdateTimeoutCommand}"/>
-                                    </TextBox.InputBindings>
+                                <TextBox x:Name="txtTimeoutMs" Text="8000" Margin="10 0">
                                 </TextBox>
                             </StackPanel>
 
-                            <StackPanel Margin="0 0 0 15">
-                                <TextBlock Text="测试任务时长(秒)" FontSize="12" Foreground="#333"/>
-                                <TextBox x:Name="txtTaskSeconds" Text="5" Width="100" Margin="0 5 0 0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0 10">
+                                <TextBlock Text="任务时长(秒)" FontSize="12" Foreground="#333"/>
+                                <TextBox x:Name="txtTaskSeconds" Text="5" Margin="10 0"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
 
                     <Grid Grid.Column="1">
                         <StackPanel x:Name="BusinessGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <!--<StackPanel.Background>
-                                <ImageBrush ImageSource="https://picsum.photos/800/450" Stretch="Fill"/>
-                            </StackPanel.Background>-->
                             <Image Source="https://picsum.photos/800/450" Width="500" Height="300"/>
-                            <Button Content="Show Mask" Width="220" Height="40" Click="ShowMask_Click" Margin="0 10"/>
-                            <Button Content="Task Test" Width="220" Height="40" Click="ExecuteTask_Click" Margin="0 10"/>
-                            <TextBlock Text="业务内容区域" FontSize="20" Margin="0 40 0 0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" Margin="0 5" HorizontalAlignment="Center">
+                                <Button Content="Show Mask" Width="100" Height="40" Click="ShowMask_Click" Margin="5"/>
+                                <Button Content="Task Test" Width="100" Height="40" Click="ExecuteTask_Click" Margin="5"/>
+                            </StackPanel>
+                            <TextBlock Text="业务内容区域" FontSize="20" Margin="0 20 0 0" HorizontalAlignment="Center"/>
                         </StackPanel>
 
                         <control:MaskPanel x:Name="maskPanel"
@@ -488,166 +483,122 @@
                                      TaskCompleted="MaskPanel_TaskCompleted"
                                      TaskCancelled="MaskPanel_TaskCancelled"
                                      OnTimeout="MaskPanel_Timeout">
-                            <Border Width="300" Height="240" Background="White" CornerRadius="8">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock Text="处理中..." FontSize="20" Margin="0 0 0 10"/>
-                                    <TextBlock x:Name="txtElapsedTime" Text="00:00:00" FontSize="18" Foreground="#E74C3C" Margin="0 10"/>
-                                    <TextBlock Name="tbMsg" Text="已执行时间" FontSize="12" Foreground="#666" Margin="0 10"/>
-                                    <TextBlock Name="tbTime" FontSize="20" Margin="0 10"/>
+                            <Border Width="300" Height="200" Background="White" CornerRadius="5">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="处理中..." FontSize="18" Margin="0 30 0 5"/>
+                                    <TextBlock x:Name="txtElapsedTime" Text="00:00:00" FontSize="16" Foreground="#E74C3C"/>
+                                    <TextBlock Name="tbMsg" Text="" FontSize="12" Foreground="#666" Margin="0 5"/>
                                     <ProgressBar Width="200" Height="10" IsIndeterminate="True" Margin="0 10"/>
-                                    <Button Content="取消操作" Width="100" Height="30" Click="CancelTask_Click" Background="#E74C3C" Foreground="White" BorderThickness="0"/>
+                                    <Button Content="Cancel" Width="100" Height="30" Click="CancelTask_Click" Background="#E74C3C" Foreground="White" BorderThickness="0"/>
                                 </StackPanel>
                             </Border>
                         </control:MaskPanel>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="ItemsControlTest">
+            <TabItem Header="EdgeAnimationTest">
                 <Grid Background="#F5F5F5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="60" />
-                    </Grid.RowDefinitions>
 
-                    <Border Grid.Column="0" Grid.Row="0" Background="White" Margin="10" CornerRadius="8" Padding="15">
+                    <Border Background="White" Margin="10" Padding="5">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel>
-                                <TextBlock Text="参数配置" FontSize="18" FontWeight="Bold" Margin="0 0 0 20" Foreground="#2C3E50"/>
+                                <TextBlock Text="参数配置" FontSize="18" FontWeight="Bold" Margin="0 5"/>
 
-                                <!-- 布局类型 -->
-                                <StackPanel Margin="0 12 0 0">
-                                    <TextBlock Text="布局类型" FontSize="13" Foreground="#666"/>
-                                    <ComboBox x:Name="cbLayoutType" SelectedIndex="3" Margin="0 5 0 0">
-                                        <ComboBoxItem Tag="Linear">直线布局</ComboBoxItem>
-                                        <ComboBoxItem Tag="Circular">环形布局</ComboBoxItem>
-                                        <ComboBoxItem Tag="Triangle">正三角形布局</ComboBoxItem>
-                                        <ComboBoxItem Tag="Hexagon">正六边形布局</ComboBoxItem>
-                                        <ComboBoxItem Tag="Rhombus">菱形布局</ComboBoxItem>
+                                <StackPanel Margin="0 5">
+                                    <TextBlock Text="布局形状"/>
+                                    <ComboBox x:Name="cbLayoutType" SelectedIndex="1" Margin="0 5 0 0" Width="80" HorizontalAlignment="Left">
+                                        <ComboBoxItem Tag="Linear" Name="cbiLine">直线</ComboBoxItem>
+                                        <ComboBoxItem Tag="Circular" Name="cbiCircular">环形</ComboBoxItem>
+                                        <ComboBoxItem Tag="Triangle">三角形</ComboBoxItem>
+                                        <ComboBoxItem Tag="Hexagon">六边形</ComboBoxItem>
+                                        <ComboBoxItem Tag="Rhombus">菱形</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
 
-                                <!-- 布局模式（三角形/六边形） -->
-                                <StackPanel Margin="0 12 0 0" x:Name="pnlLayoutMode">
-                                    <TextBlock Text="布局模式" FontSize="13" Foreground="#666"/>
-                                    <ComboBox x:Name="cbLayoutMode" SelectedIndex="0" Margin="0 5 0 0">
-                                        <ComboBoxItem Tag="Edge">边模式（均匀分布，包含顶点）</ComboBoxItem>
-                                        <ComboBoxItem Tag="Grid">网格模式（6/3顶点+蜂窝网格）</ComboBoxItem>
-                                    </ComboBox>
+                                <!-- 弧度 -->
+                                <StackPanel Orientation="Horizontal" Margin="0 5" x:Name="pnlArcAngle" Visibility="{Binding ElementName=cbiCircular,Path=IsSelected,Converter={StaticResource b2vConverter}}">
+                                    <TextBlock Text="弧度(°)"/>
+                                    <Slider x:Name="slArcAngle" Minimum="0" Maximum="360" Value="360" TickFrequency="15" IsSnapToTickEnabled="True" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slArcAngle, Path=Value}"/>
                                 </StackPanel>
 
-                                <!-- 网格参数（Grid模式） -->
-                                <StackPanel Margin="0 12 0 0" x:Name="pnlGridParams">
-                                    <TextBlock Text="网格参数（Wrap模式）" FontSize="13" Foreground="#666"/>
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="单行/列数量" FontSize="12" Foreground="#888"/>
-                                        <Slider x:Name="slGridLineCount" Minimum="2" Maximum="10" Value="5" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0 3 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slGridLineCount, Path=Value, StringFormat=当前: {0}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="排列方向" FontSize="12" Foreground="#888"/>
-                                        <RadioButton x:Name="rbHorizontal" Content="水平优先" IsChecked="True" Margin="0 3 0 0"/>
-                                        <RadioButton x:Name="rbVertical" Content="垂直优先" Margin="0 2 0 0"/>
-                                    </StackPanel>
+                                <!-- 曲率参数 -->
+                                <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=cbiLine,Path=IsSelected,Converter={StaticResource BoolInverseConverter}}">
+                                    <TextBlock Text="压缩率"/>
+                                    <Slider x:Name="slCurvature" Minimum="0.1" Maximum="1" Value="1" TickFrequency="0.1" IsSnapToTickEnabled="True" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slCurvature, Path=Value, StringFormat=0.0}"/>
                                 </StackPanel>
 
-                                <!-- 环形弧度（仅环形） -->
-                                <StackPanel Margin="0 12 0 0" x:Name="pnlArcAngle">
-                                    <TextBlock Text="环形弧度(°)" FontSize="13" Foreground="#666"/>
-                                    <Slider x:Name="slArcAngle" Minimum="0" Maximum="360" Value="360" TickFrequency="10" IsSnapToTickEnabled="True" Margin="0 5 0 0"/>
-                                    <TextBlock Text="{Binding ElementName=slArcAngle, Path=Value, StringFormat=当前: {0}°}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
+                                <TextBlock Text="动画参数" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="起点缩放" FontSize="13"/>
+                                    <Slider x:Name="slStartScale" Minimum="0" Maximum="1" Value="0.2" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slStartScale, Path=Value, StringFormat=0.0}"/>
                                 </StackPanel>
 
-                                <!-- 曲率参数（所有形状） -->
-                                <StackPanel Margin="0 12 0 0">
-                                    <TextBlock Text="曲率（0=压扁，1=标准）" FontSize="13" Foreground="#666"/>
-                                    <Slider x:Name="slCurvature" Minimum="0.01" Maximum="1" Value="1" TickFrequency="0.05" IsSnapToTickEnabled="True" Margin="0 5 0 0"/>
-                                    <TextBlock Text="{Binding ElementName=slCurvature, Path=Value, StringFormat=当前: {0:F2}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="终点缩放" FontSize="13"/>
+                                    <Slider x:Name="slEndScale" Minimum="0" Maximum="2" Value="1" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slEndScale, Path=Value, StringFormat=0.0}"/>
                                 </StackPanel>
 
-                                <!-- 动态添加Items -->
-                                <!--<StackPanel Margin="0 12 0 0">
-                                    <TextBlock Text="元素数量（动态Items）" FontSize="13" Foreground="#666"/>
-                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                                        <Button x:Name="btnAddItem" Content="添加元素" Width="100" Margin="0 0 5 0" Click="BtnAddItem_Click"/>
-                                        <Button x:Name="btnRemoveItem" Content="移除元素" Width="100" Margin="5 0 0 0" Click="BtnRemoveItem_Click"/>
-                                        <TextBlock x:Name="txtItemCount" Text="当前：6个" Margin="10 0 0 0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </StackPanel>-->
-
-                                <StackPanel Margin="0 12 0 0">
-                                    <TextBlock Text="动画参数" FontSize="14" FontWeight="SemiBold" Foreground="#2C3E50" Margin="0 0 0 5"/>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="起点缩放" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slStartScale" Minimum="0" Maximum="1" Value="0.2" TickFrequency="0.1" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slStartScale, Path=Value, StringFormat=当前: {0:F1}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="终点缩放" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slEndScale" Minimum="0" Maximum="2" Value="1.2" TickFrequency="0.1" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slEndScale, Path=Value, StringFormat=当前: {0:F1}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="起点不透明度" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slStartOpacity" Minimum="0" Maximum="1" Value="0.1" TickFrequency="0.05" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slStartOpacity, Path=Value, StringFormat=当前: {0:F2}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="终点不透明度" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.05" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slEndOpacity, Path=Value, StringFormat=当前: {0:F2}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="X轴位移幅度(像素)" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slXOffset" Minimum="-10" Maximum="30" Value="10" TickFrequency="1" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slXOffset, Path=Value, StringFormat=当前: {0}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="Y轴位移幅度(像素)" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slYOffset" Minimum="-10" Maximum="30" Value="10" TickFrequency="1" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slYOffset, Path=Value, StringFormat=当前: {0}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="动画时长(ms)" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slAnimationDuration" Minimum="500" Maximum="3000" Value="1500" TickFrequency="100" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slAnimationDuration, Path=Value, StringFormat=当前: {0}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-
-                                    <StackPanel Margin="0 5 0 0">
-                                        <TextBlock Text="动画延迟(ms)" FontSize="13" Foreground="#666"/>
-                                        <Slider x:Name="slAnimationDelay" Minimum="-100" Maximum="500" Value="150" TickFrequency="10" Margin="0 5 0 0"/>
-                                        <TextBlock Text="{Binding ElementName=slAnimationDelay, Path=Value, StringFormat=当前: {0}}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
-                                    </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="起点不透明度" FontSize="13"/>
+                                    <Slider x:Name="slStartOpacity" Minimum="0" Maximum="1" Value="0.1" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slStartOpacity, Path=Value, StringFormat=0.0}"/>
                                 </StackPanel>
 
-                                <StackPanel Margin="0 12 0 0">
-                                    <TextBlock Text="Item边距" FontSize="13" Foreground="#666"/>
-                                    <Slider x:Name="slItemMargin" Minimum="0" Maximum="50" Value="10" TickFrequency="5" Margin="0 5 0 0"/>
-                                    <TextBlock Text="{Binding ElementName=slItemMargin, Path=Value, StringFormat=当前: {0}px}" FontSize="11" Foreground="#999" HorizontalAlignment="Right"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="终点不透明度" FontSize="13"/>
+                                    <Slider x:Name="slEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slEndOpacity, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="X轴位移" FontSize="13"/>
+                                    <Slider x:Name="slXOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slXOffset, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="Y轴位移" FontSize="13"/>
+                                    <Slider x:Name="slYOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slYOffset, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="动画时长(ms)" FontSize="13"/>
+                                    <Slider x:Name="slAnimationDuration" Minimum="200" Maximum="3000" Value="1000" TickFrequency="100" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slAnimationDuration, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="动画延迟(ms)" FontSize="13"/>
+                                    <Slider x:Name="slAnimationDelay" Minimum="-100" Maximum="500" Value="0" TickFrequency="10" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slAnimationDelay, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="Item间距" FontSize="13"/>
+                                    <Slider x:Name="slItemMargin" Minimum="0" Maximum="20" Value="3" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slItemMargin, Path=Value}"/>
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
                     </Border>
 
-                    <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="White" Margin="10" CornerRadius="8">
-                        <control:AnimateItemsControl 
-                                x:Name="loading"
+                    <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="White" Margin="10" CornerRadius="5" ClipToBounds="True">
+                        <control:AnimateItemsControl
+                                x:Name="aicEdge"
                                 LayoutType="{Binding ElementName=cbLayoutType, Path=SelectedItem.Tag, Converter={StaticResource StringToLayoutTypeConverter}}"
-                                LayoutMode="{Binding ElementName=cbLayoutMode, Path=SelectedItem.Tag, Converter={StaticResource StringToLayoutModeConverter}}"
+                                LayoutMode="Edge"
                                 ArcAngle="{Binding ElementName=slArcAngle, Path=Value}"
                                 Curvature="{Binding ElementName=slCurvature, Path=Value}"
-                                GridLineCount="{Binding ElementName=slGridLineCount, Path=Value}"
-                                GridDirection="{Binding ElementName=rbHorizontal, Path=IsChecked, Converter={StaticResource BoolToGridDirectionConverter}}"
                                 StartScale="{Binding ElementName=slStartScale, Path=Value}"
                                 EndScale="{Binding ElementName=slEndScale, Path=Value}"
                                 StartOpacity="{Binding ElementName=slStartOpacity, Path=Value}"
@@ -656,16 +607,138 @@
                                 YOffset="{Binding ElementName=slYOffset, Path=Value}"
                                 AnimationDuration="{Binding ElementName=slAnimationDuration, Path=Value}"
                                 AnimationDelay="{Binding ElementName=slAnimationDelay, Path=Value}">
-
                             <control:AnimateItemsControl.ItemContainerStyle>
                                 <Style TargetType="ContentPresenter">
                                     <Setter Property="Margin" Value="{Binding ElementName=slItemMargin, Path=Value}"/>
+                                </Style>
+                            </control:AnimateItemsControl.ItemContainerStyle>
+                            <control:AnimateItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="DodgerBlue" Width="16" Height="16" BorderBrush="SkyBlue" BorderThickness="1">
+                                        <TextBlock Text="{Binding}" FontSize="8" Foreground="White" TextAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </DataTemplate>
+                            </control:AnimateItemsControl.ItemTemplate>
+                        </control:AnimateItemsControl>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="GridAnimationTest">
+                <Grid Background="#F5F5F5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Background="White" Margin="10" Padding="5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="参数配置" FontSize="18" FontWeight="Bold" Margin="0 5"/>
+
+                                <StackPanel Margin="0 5">
+                                    <TextBlock Text="布局形状"/>
+                                    <ComboBox x:Name="cbGridType" SelectedIndex="0" Margin="0 5 0 0" Width="80" HorizontalAlignment="Left">
+                                        <ComboBoxItem Tag="Triangle">三角形</ComboBoxItem>
+                                        <ComboBoxItem Tag="Hexagon">六边形</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="网格列数" FontSize="12"/>
+                                    <Slider x:Name="slGridLineCount" Minimum="2" Maximum="10" Value="5" TickFrequency="1" IsSnapToTickEnabled="True" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridLineCount, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="压缩率"/>
+                                    <Slider x:Name="slGridCurvature" Minimum="0.1" Maximum="1" Value="1" TickFrequency="0.1" IsSnapToTickEnabled="True" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridCurvature, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <TextBlock Text="动画参数" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="起点缩放" FontSize="13"/>
+                                    <Slider x:Name="slGridStartScale" Minimum="0" Maximum="1" Value="0.2" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridStartScale, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="终点缩放" FontSize="13"/>
+                                    <Slider x:Name="slGridEndScale" Minimum="0" Maximum="2" Value="1" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridEndScale, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="起点不透明度" FontSize="13"/>
+                                    <Slider x:Name="slGridStartOpacity" Minimum="0" Maximum="1" Value="0.1" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridStartOpacity, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="终点不透明度" FontSize="13"/>
+                                    <Slider x:Name="slGridEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridEndOpacity, Path=Value, StringFormat=0.0}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="X轴位移" FontSize="13"/>
+                                    <Slider x:Name="slGridXOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridXOffset, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="Y轴位移" FontSize="13"/>
+                                    <Slider x:Name="slGridYOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridYOffset, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="动画时长(ms)" FontSize="13"/>
+                                    <Slider x:Name="slGridAnimationDuration" Minimum="200" Maximum="3000" Value="1000" TickFrequency="100" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridAnimationDuration, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="动画延迟(ms)" FontSize="13"/>
+                                    <Slider x:Name="slGridAnimationDelay" Minimum="-100" Maximum="500" Value="0" TickFrequency="10" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridAnimationDelay, Path=Value}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
+                                    <TextBlock Text="Item间距" FontSize="13"/>
+                                    <Slider x:Name="slGridItemMargin" Minimum="0" Maximum="20" Value="3" TickFrequency="1" Width="80"/>
+                                    <TextBlock Text="{Binding ElementName=slGridItemMargin, Path=Value}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+
+                    <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="White" Margin="10" CornerRadius="5" ClipToBounds="True">
+                        <control:AnimateItemsControl 
+                                x:Name="aicGrid"
+                                LayoutType="{Binding ElementName=cbGridType, Path=SelectedItem.Tag, Converter={StaticResource StringToLayoutTypeConverter}}"
+                                LayoutMode="Grid"
+                                Curvature="{Binding ElementName=slGridCurvature, Path=Value}"
+                                GridLineCount="{Binding ElementName=slGridLineCount, Path=Value}"
+                                StartScale="{Binding ElementName=slGridStartScale, Path=Value}"
+                                EndScale="{Binding ElementName=slGridEndScale, Path=Value}"
+                                StartOpacity="{Binding ElementName=slGridStartOpacity, Path=Value}"
+                                EndOpacity="{Binding ElementName=slGridEndOpacity, Path=Value}"
+                                XOffset="{Binding ElementName=slGridXOffset, Path=Value}"
+                                YOffset="{Binding ElementName=slGridYOffset, Path=Value}"
+                                AnimationDuration="{Binding ElementName=slGridAnimationDuration, Path=Value}"
+                                AnimationDelay="{Binding ElementName=slGridAnimationDelay, Path=Value}">
+
+                            <control:AnimateItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Margin" Value="{Binding ElementName=slGridItemMargin, Path=Value}"/>
                                     <Setter Property="ContentTemplate">
                                         <Setter.Value>
                                             <DataTemplate>
                                                 <Grid>
-                                                    <Ellipse Width="10" Height="10" Fill="DeepSkyBlue" Stroke="LightBlue" StrokeThickness="1"/>
-                                                    <!--<TextBlock Text="{Binding}"/>-->
+                                                    <Rectangle Width="12" Height="12" Fill="DeepPink" Stroke="Violet" StrokeThickness="1.5" RadiusX="1" RadiusY="1"/>
+                                                    <TextBlock Text="{Binding}" FontSize="8" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                 </Grid>
                                             </DataTemplate>
                                         </Setter.Value>
