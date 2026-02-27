@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="IceSky.WpfLoading.Sample.Controls.DotAnimation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IceSky.WpfLoading.Sample.Controls" 
+             xmlns:anim="clr-namespace:IceSky.WpfLoading.Animations;assembly=IceSky.WpfLoading"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" ItemWidth="150" ItemHeight="100">
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Bounce" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Bounce Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Pulse" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Pulse Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Wave" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Wave Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Bouncing" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Bouncing Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Elastic" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Elastic Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Flashing" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Flashing Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Collision" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Collision Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Revolution" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Revolution Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Carousel" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Carousel Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="WindMill" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:WindMill Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Bricks" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Bricks Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Floating" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Floating Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Spin" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Spin Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Fire" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Fire Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Falling" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Falling Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Stretching" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Stretching Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Intersect" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Intersect Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Drop" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Drop Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Gathering" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Gathering Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="HourGlass" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:HourGlass Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Hexagon" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Hexagon Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Triangle" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Triangle Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Blink" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Blink Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Snake" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Snake Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Fish" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Fish Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Figure8" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Figure8 Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Pinball" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Pinball Color="#10B981"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Expand" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Expand Color="#4F46E5"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Swing" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Swing Color="#EC4899"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Fireworks" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <anim:Fireworks Color="#10B981"/>
+                </StackPanel>
+
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

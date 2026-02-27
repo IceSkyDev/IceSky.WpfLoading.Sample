@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="IceSky.WpfLoading.Sample.Controls.EdgeAnimation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IceSky.WpfLoading.Sample.Controls" 
+             xmlns:control="clr-namespace:IceSky.WpfLoading;assembly=IceSky.WpfLoading"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#F5F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Background="White" Margin="10" Padding="5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="参数配置" FontSize="18" FontWeight="Bold" Margin="0 5"/>
+
+                    <StackPanel Margin="0 5">
+                        <TextBlock Text="布局形状"/>
+                        <ComboBox x:Name="cbLayoutType" SelectedIndex="1" Margin="0 5 0 0" Width="80" HorizontalAlignment="Left">
+                            <ComboBoxItem Tag="Linear" Name="cbiLine">直线</ComboBoxItem>
+                            <ComboBoxItem Tag="Circular" Name="cbiCircular">环形</ComboBoxItem>
+                            <ComboBoxItem Tag="Triangle">三角形</ComboBoxItem>
+                            <ComboBoxItem Tag="Hexagon">六边形</ComboBoxItem>
+                            <ComboBoxItem Tag="Rhombus">菱形</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- 弧度 -->
+                    <StackPanel Orientation="Horizontal" Margin="0 5" x:Name="pnlArcAngle" Visibility="{Binding ElementName=cbiCircular,Path=IsSelected,Converter={StaticResource b2vConverter}}">
+                        <TextBlock Text="弧度(°)"/>
+                        <Slider x:Name="slArcAngle" Minimum="0" Maximum="360" Value="360" TickFrequency="15" IsSnapToTickEnabled="True" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slArcAngle, Path=Value}"/>
+                    </StackPanel>
+
+                    <!-- 曲率参数 -->
+                    <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=cbiLine,Path=IsSelected,Converter={StaticResource BoolInverseConverter}}">
+                        <TextBlock Text="压缩率"/>
+                        <Slider x:Name="slCurvature" Minimum="0.1" Maximum="1" Value="1" TickFrequency="0.1" IsSnapToTickEnabled="True" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slCurvature, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="Item间距" FontSize="13"/>
+                        <Slider x:Name="slItemMargin" Minimum="0" Maximum="20" Value="3" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slItemMargin, Path=Value}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="动画参数" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="起点缩放" FontSize="13"/>
+                        <Slider x:Name="slStartScale" Minimum="0" Maximum="1" Value="0.5" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slStartScale, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="终点缩放" FontSize="13"/>
+                        <Slider x:Name="slEndScale" Minimum="0" Maximum="2" Value="1" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slEndScale, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="起点不透明度" FontSize="13"/>
+                        <Slider x:Name="slStartOpacity" Minimum="0" Maximum="1" Value="0.1" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slStartOpacity, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="终点不透明度" FontSize="13"/>
+                        <Slider x:Name="slEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slEndOpacity, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="X轴位移" FontSize="13"/>
+                        <Slider x:Name="slXOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slXOffset, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="Y轴位移" FontSize="13"/>
+                        <Slider x:Name="slYOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slYOffset, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="动画时长(ms)" FontSize="13"/>
+                        <Slider x:Name="slAnimationDuration" Minimum="200" Maximum="3000" Value="1000" TickFrequency="100" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slAnimationDuration, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="动画延迟(ms)" FontSize="13"/>
+                        <Slider x:Name="slAnimationDelay" Minimum="-100" Maximum="500" Value="100" TickFrequency="10" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slAnimationDelay, Path=Value}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 5">
+                        <CheckBox x:Name="chkAutoReverse" Content="自动反转变换" IsChecked="True" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <Button Content="复制控件代码" Click="BtnCopyCode_Click" Margin="0 10 0 0" Padding="10 5" Background="#4A90E2" Foreground="White" BorderThickness="0"/>
+                    <Button Content="重置默认值" Click="BtnReset_Click" Margin="0 10 0 0" Padding="10 5"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="20">
+            <Border Name="bdBg" Background="White" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1" ClipToBounds="True">
+                <control:AnimateItemsControl
+                                x:Name="aicEdge"
+                                LayoutType="{Binding ElementName=cbLayoutType, Path=SelectedItem.Tag, Converter={StaticResource StringToLayoutTypeConverter}}"
+                                LayoutMode="Edge"
+                                ArcAngle="{Binding ElementName=slArcAngle, Path=Value}"
+                                Curvature="{Binding ElementName=slCurvature, Path=Value}"
+                                StartScale="{Binding ElementName=slStartScale, Path=Value}"
+                                EndScale="{Binding ElementName=slEndScale, Path=Value}"
+                                StartOpacity="{Binding ElementName=slStartOpacity, Path=Value}"
+                                EndOpacity="{Binding ElementName=slEndOpacity, Path=Value}"
+                                XOffset="{Binding ElementName=slXOffset, Path=Value}"
+                                YOffset="{Binding ElementName=slYOffset, Path=Value}"
+                                AnimationDuration="{Binding ElementName=slAnimationDuration, Path=Value}"
+                                AnimationDelay="{Binding ElementName=slAnimationDelay, Path=Value}"
+                                IsAnimationAutoReverse="{Binding ElementName=chkAutoReverse,Path=IsChecked}">
+                    <control:AnimateItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="{Binding ElementName=slItemMargin, Path=Value}"/>
+                        </Style>
+                    </control:AnimateItemsControl.ItemContainerStyle>
+                    <control:AnimateItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="DodgerBlue" Width="16" Height="16" BorderBrush="SkyBlue" BorderThickness="1">
+                                <TextBlock Text="{Binding}" FontSize="8" Foreground="White" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </DataTemplate>
+                    </control:AnimateItemsControl.ItemTemplate>
+                </control:AnimateItemsControl>
+            </Border>
+            <CheckBox Name="cbDark" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">Dark background</CheckBox>
+        </Grid>
+    </Grid>
+</UserControl>

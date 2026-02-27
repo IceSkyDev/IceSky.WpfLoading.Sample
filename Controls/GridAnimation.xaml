@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="IceSky.WpfLoading.Sample.Controls.GridAnimation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IceSky.WpfLoading.Sample.Controls" 
+             xmlns:control="clr-namespace:IceSky.WpfLoading;assembly=IceSky.WpfLoading"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#F5F5F5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Background="White" Margin="10" Padding="5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="参数配置" FontSize="18" FontWeight="Bold" Margin="0 5"/>
+
+                    <StackPanel Margin="0 5">
+                        <TextBlock Text="布局形状"/>
+                        <ComboBox x:Name="cbGridType" SelectedIndex="0" Margin="0 5 0 0" Width="80" HorizontalAlignment="Left">
+                            <ComboBoxItem Tag="Triangle">三角形</ComboBoxItem>
+                            <ComboBoxItem Tag="Hexagon">六边形</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="网格列数" FontSize="12"/>
+                        <Slider x:Name="slGridLineCount" Minimum="2" Maximum="10" Value="5" TickFrequency="1" IsSnapToTickEnabled="True" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridLineCount, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="压缩率"/>
+                        <Slider x:Name="slGridCurvature" Minimum="0.1" Maximum="1" Value="1" TickFrequency="0.1" IsSnapToTickEnabled="True" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridCurvature, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="Item间距" FontSize="13"/>
+                        <Slider x:Name="slGridItemMargin" Minimum="0" Maximum="20" Value="3" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridItemMargin, Path=Value}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="动画参数" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="起点缩放" FontSize="13"/>
+                        <Slider x:Name="slGridStartScale" Minimum="0" Maximum="1" Value="0.5" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridStartScale, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="终点缩放" FontSize="13"/>
+                        <Slider x:Name="slGridEndScale" Minimum="0" Maximum="2" Value="1" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridEndScale, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="起点不透明度" FontSize="13"/>
+                        <Slider x:Name="slGridStartOpacity" Minimum="0" Maximum="1" Value="0.1" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridStartOpacity, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="终点不透明度" FontSize="13"/>
+                        <Slider x:Name="slGridEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridEndOpacity, Path=Value, StringFormat=0.0}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="X轴位移" FontSize="13"/>
+                        <Slider x:Name="slGridXOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridXOffset, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="Y轴位移" FontSize="13"/>
+                        <Slider x:Name="slGridYOffset" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridYOffset, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="动画时长(ms)" FontSize="13"/>
+                        <Slider x:Name="slGridAnimationDuration" Minimum="200" Maximum="3000" Value="1000" TickFrequency="100" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridAnimationDuration, Path=Value}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 5">
+                        <TextBlock Text="动画延迟(ms)" FontSize="13"/>
+                        <Slider x:Name="slGridAnimationDelay" Minimum="-100" Maximum="500" Value="100" TickFrequency="10" Width="80"/>
+                        <TextBlock Text="{Binding ElementName=slGridAnimationDelay, Path=Value}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 5">
+                        <CheckBox x:Name="chkAutoReverse" Content="自动反转变换" IsChecked="True" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <Button Content="复制控件代码" Click="BtnCopyCode_Click" Margin="0 10 0 0" Padding="10 5" Background="#4A90E2" Foreground="White" BorderThickness="0"/>
+                    <Button Content="重置默认值" Click="BtnReset_Click" Margin="0 10 0 0" Padding="10 5"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="20">
+            <Border Name="bdBg" Background="White" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1" ClipToBounds="True">
+                <control:AnimateItemsControl 
+                                x:Name="aicGrid"
+                                LayoutType="{Binding ElementName=cbGridType, Path=SelectedItem.Tag, Converter={StaticResource StringToLayoutTypeConverter}}"
+                                LayoutMode="Grid"
+                                Curvature="{Binding ElementName=slGridCurvature, Path=Value}"
+                                GridLineCount="{Binding ElementName=slGridLineCount, Path=Value}"
+                                StartScale="{Binding ElementName=slGridStartScale, Path=Value}"
+                                EndScale="{Binding ElementName=slGridEndScale, Path=Value}"
+                                StartOpacity="{Binding ElementName=slGridStartOpacity, Path=Value}"
+                                EndOpacity="{Binding ElementName=slGridEndOpacity, Path=Value}"
+                                XOffset="{Binding ElementName=slGridXOffset, Path=Value}"
+                                YOffset="{Binding ElementName=slGridYOffset, Path=Value}"
+                                AnimationDuration="{Binding ElementName=slGridAnimationDuration, Path=Value}"
+                                AnimationDelay="{Binding ElementName=slGridAnimationDelay, Path=Value}"
+                                IsAnimationAutoReverse="{Binding ElementName=chkAutoReverse,Path=IsChecked}">
+
+                    <control:AnimateItemsControl.ItemContainerStyle>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="{Binding ElementName=slGridItemMargin, Path=Value}"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Rectangle Width="12" Height="12" Fill="DeepPink" Stroke="Violet" StrokeThickness="1.5" RadiusX="1" RadiusY="1"/>
+                                            <TextBlock Text="{Binding}" FontSize="8" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </control:AnimateItemsControl.ItemContainerStyle>
+                </control:AnimateItemsControl>
+            </Border>
+            <CheckBox Name="cbDark" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">Dark background</CheckBox>
+        </Grid>
+    </Grid>
+</UserControl>

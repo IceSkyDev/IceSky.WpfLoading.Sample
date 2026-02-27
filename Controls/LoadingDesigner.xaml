@@ -1,0 +1,227 @@
+﻿<UserControl x:Class="IceSky.WpfLoading.Sample.Controls.LoadingDesigner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IceSky.WpfLoading.Sample.Controls" xmlns:anim="clr-namespace:IceSky.WpfLoading.Animations;assembly=IceSky.WpfLoading"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#F0F0F0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" Padding="10" Background="White" BorderThickness="0 0 1 0" BorderBrush="#E0E0E0">
+            <StackPanel>
+                <TextBlock Text="基础设置" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="元素宽度:"/>
+                    <Slider x:Name="sldRectWidth" Minimum="1" Maximum="50" Value="10"/>
+                    <TextBox Text="{Binding ElementName=sldRectWidth, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="元素高度:"/>
+                    <Slider x:Name="sldRectHeight" Minimum="1" Maximum="50" Value="20"/>
+                    <TextBox Text="{Binding ElementName=sldRectHeight, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="圆角半径:"/>
+                    <Slider x:Name="sldCornerRadius" Minimum="0" Maximum="50" Value="0"/>
+                    <TextBox Text="{Binding ElementName=sldCornerRadius, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="元素数量:"/>
+                    <Slider x:Name="sldCount" Minimum="1" Maximum="50" Value="6" IsSnapToTickEnabled="True"/>
+                    <TextBox Text="{Binding ElementName=sldCount, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <Separator Margin="0 5"/>
+                <TextBlock Text="颜色设置" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="渐变起始色:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbColor1" Width="100" Text="#FF4A90E2" Margin="5 0"></TextBox>
+                    <Border x:Name="bdColor1" Width="24" Height="20" BorderThickness="1" BorderBrush="#333" Background="{Binding ElementName=tbColor1,Path=Text}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="渐变结束色:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="tbColor2" Width="100" Text="#FF9013FE" Margin="5 0"></TextBox>
+                    <Border x:Name="bdColor2" Width="24" Height="20" BorderThickness="1" BorderBrush="#333" Background="{Binding ElementName=tbColor2,Path=Text}"/>
+                </StackPanel>
+                <CheckBox x:Name="chkLoopColor" Content="循环颜色" Margin="0 5" IsChecked="True"/>
+
+                <Separator Margin="0 5"/>
+                <TextBlock Text="布局设置" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="曲率:"/>
+                    <Slider x:Name="sldArcDegree" Minimum="-100" Maximum="100" Value="100" TickFrequency="5"/>
+                    <TextBox Text="{Binding ElementName=sldArcDegree, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="弧度:"/>
+                    <Slider x:Name="sldCurveRange" Minimum="-360" Maximum="360" Value="360" TickFrequency="15"/>
+                    <TextBox Text="{Binding ElementName=sldCurveRange, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="内径:"/>
+                    <Slider x:Name="sldInnerRadius" Minimum="0" Maximum="200" Value="30" TickFrequency="5"/>
+                    <TextBox Text="{Binding ElementName=sldInnerRadius, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <CheckBox x:Name="chkIsAverageSpacing" Content="平均分配间距" Margin="0 5 0 0" IsChecked="True"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=chkIsAverageSpacing, Path=IsChecked, Converter={StaticResource b2vConverter}}">
+                    <TextBlock Text="间距:"/>
+                    <Slider x:Name="sldSpacing" Minimum="-10" Maximum="50" Value="8"/>
+                    <TextBox Text="{Binding ElementName=sldSpacing, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+
+
+                <Separator Margin="0 5"/>
+                <TextBlock Text="旋转动画" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+                <CheckBox x:Name="chkIsRingRotation" Content="整体旋转" Margin="0 5 0 0"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=chkIsRingRotation, Path=IsChecked}">
+                    <TextBlock Text="转速(度/秒):"/>
+                    <Slider x:Name="sldRotationSpeed" Minimum="-180" Maximum="180" Value="90" TickFrequency="15"/>
+                    <TextBox Text="{Binding ElementName=sldRotationSpeed, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <CheckBox x:Name="chkIsDiscreteRingRotation" Content="离散旋转" Margin="0 5 0 0"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=chkIsDiscreteRingRotation, Path=IsChecked}">
+                    <TextBlock Text="转速(圈/秒):"/>
+                    <Slider x:Name="sldDiscreteStepTime" Minimum="-2" Maximum="2" Value="0.5" TickFrequency="0.1"/>
+                    <TextBox Text="{Binding ElementName=sldDiscreteStepTime, Path=Value, Mode=TwoWay,StringFormat=0.0}"/>
+                </StackPanel>
+                <CheckBox x:Name="chkIsRectRotate" Content="元素旋转" Margin="0 5 0 0"/>
+                <StackPanel Orientation="Horizontal" Margin="0 5" IsEnabled="{Binding ElementName=chkIsRectRotate, Path=IsChecked}">
+                    <TextBlock Text="转速(度/秒):"/>
+                    <Slider x:Name="sldRectRotateSpeed" Minimum="-360" Maximum="360" Value="180" TickFrequency="15"/>
+                    <TextBox Text="{Binding ElementName=sldRectRotateSpeed, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <Separator Margin="0 5"/>
+                <TextBlock Text="变换设置" FontSize="14" FontWeight="Bold" Margin="0 5"/>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="变换时长(ms):"/>
+                        <Slider x:Name="sldSingleDuration" Minimum="0" Maximum="3000" Value="500" TickFrequency="50"/>
+                        <TextBox Text="{Binding ElementName=sldSingleDuration, Path=Value, Mode=TwoWay}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="延迟(ms):"/>
+                        <Slider x:Name="sldDelayTime" Minimum="-1000" Maximum="3000" Value="0" TickFrequency="50"/>
+                        <TextBox Text="{Binding ElementName=sldDelayTime, Path=Value, Mode=TwoWay}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="起始缩放X:"/>
+                        <Slider x:Name="sldStartScaleX" Minimum="-2" Maximum="2" Value="0.5" TickFrequency="0.1" LargeChange="0.5"/>
+                        <TextBox Text="{Binding ElementName=sldStartScaleX, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="结束缩放X:"/>
+                        <Slider x:Name="sldEndScaleX" Minimum="-2" Maximum="2" Value="1.0" TickFrequency="0.1" LargeChange="0.5"/>
+                        <TextBox Text="{Binding ElementName=sldEndScaleX, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="起始缩放Y:"/>
+                        <Slider x:Name="sldStartScaleY" Minimum="-2" Maximum="2" Value="0.5" TickFrequency="0.1" LargeChange="0.5"/>
+                        <TextBox Text="{Binding ElementName=sldStartScaleY, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="结束缩放Y:"/>
+                        <Slider x:Name="sldEndScaleY" Minimum="-2" Maximum="2" Value="1.0" TickFrequency="0.1" LargeChange="0.5"/>
+                        <TextBox Text="{Binding ElementName=sldEndScaleY, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="起始平移X:"/>
+                        <Slider x:Name="sldStartTransX" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" LargeChange="5"/>
+                        <TextBox Text="{Binding ElementName=sldStartTransX, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="结束平移X:"/>
+                        <Slider x:Name="sldEndTransX" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" LargeChange="5"/>
+                        <TextBox Text="{Binding ElementName=sldEndTransX, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="起始平移Y:"/>
+                        <Slider x:Name="sldStartTransY" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" LargeChange="5"/>
+                        <TextBox Text="{Binding ElementName=sldStartTransY, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="结束平移Y:"/>
+                        <Slider x:Name="sldEndTransY" Minimum="-20" Maximum="20" Value="0" TickFrequency="1" LargeChange="5"/>
+                        <TextBox Text="{Binding ElementName=sldEndTransY, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5" Orientation="Horizontal">
+                    <StackPanel Width="120">
+                        <TextBlock Text="起始透明度:"/>
+                        <Slider x:Name="sldStartOpacity" Minimum="0" Maximum="1" Value="0.3" TickFrequency="0.1" LargeChange="0.2"/>
+                        <TextBox Text="{Binding ElementName=sldStartOpacity, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Width="120" Margin="10 0 0 0">
+                        <TextBlock Text="结束透明度:"/>
+                        <Slider x:Name="sldEndOpacity" Minimum="0" Maximum="1" Value="1.0" TickFrequency="0.1" LargeChange="0.2"/>
+                        <TextBox Text="{Binding ElementName=sldEndOpacity, Path=Value, Mode=TwoWay,StringFormat=0.0}" Width="60" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0 5">
+                    <CheckBox x:Name="chkAutoReverse" Content="自动反转变换" IsChecked="True" Margin="0 5 0 0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Text="重复次数(-1=无限):"/>
+                    <Slider x:Name="sldRepeatCount" Minimum="-1" Maximum="20" Value="-1" TickFrequency="1"/>
+                    <TextBox Text="{Binding ElementName=sldRepeatCount, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <Button Content="复制控件代码" Click="BtnCopyCode_Click" Margin="0 10 0 0" Padding="10 5" Background="#4A90E2" Foreground="White" BorderThickness="0"/>
+                <Button Content="重置默认值" Click="BtnReset_Click" Margin="0 10 0 0" Padding="10 5"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Margin="20">
+            <Border Name="bdBg" Background="White" CornerRadius="8" Padding="20" BorderBrush="#E0E0E0" BorderThickness="1" ClipToBounds="True">
+                <anim:GradientLoadingControl 
+                                x:Name="loadingControl"
+                                ItemWidth="{Binding ElementName=sldRectWidth, Path=Value}"
+                                ItemHeight="{Binding ElementName=sldRectHeight, Path=Value}"
+                                CornerRadius="{Binding ElementName=sldCornerRadius, Path=Value}"
+                                Count="{Binding ElementName=sldCount, Path=Value}"
+                                StartColor="{Binding ElementName=tbColor1, Path=Text}"
+                                EndColor="{Binding ElementName=tbColor2, Path=Text}"
+                                LoopColor="{Binding ElementName=chkLoopColor,Path=IsChecked}"
+                                Spacing="{Binding ElementName=sldSpacing, Path=Value}"
+                                IsAverageSpacing="{Binding ElementName=chkIsAverageSpacing, Path=IsChecked}"
+                                ArcDegree="{Binding ElementName=sldArcDegree, Path=Value}"
+                                CurveRange="{Binding ElementName=sldCurveRange, Path=Value}"
+                                InnerRadius="{Binding ElementName=sldInnerRadius, Path=Value}"
+                                IsRingRotation="{Binding ElementName=chkIsRingRotation, Path=IsChecked}"
+                                RingRotationSpeed="{Binding ElementName=sldRotationSpeed, Path=Value}"
+                                IsDiscreteRotation="{Binding ElementName=chkIsDiscreteRingRotation, Path=IsChecked}"
+                                DiscreteRotateStepTime="{Binding ElementName=sldDiscreteStepTime, Path=Value}"
+                                IsItemRotateAnimation="{Binding ElementName=chkIsRectRotate, Path=IsChecked}"
+                                ItemRotateSpeed="{Binding ElementName=sldRectRotateSpeed, Path=Value}"
+                                ItemAnimationDuration="{Binding ElementName=sldSingleDuration, Path=Value}"
+                                DelayTime="{Binding ElementName=sldDelayTime,Path=Value}"
+                                StartScaleX="{Binding ElementName=sldStartScaleX, Path=Value}"
+                                EndScaleX="{Binding ElementName=sldEndScaleX, Path=Value}"
+                                StartScaleY="{Binding ElementName=sldStartScaleY, Path=Value}"
+                                EndScaleY="{Binding ElementName=sldEndScaleY, Path=Value}"
+                                StartOffsetX="{Binding ElementName=sldStartTransX, Path=Value}"
+                                EndOffsetX="{Binding ElementName=sldEndTransX, Path=Value}"
+                                StartOffsetY="{Binding ElementName=sldStartTransY, Path=Value}"
+                                EndOffsetY="{Binding ElementName=sldEndTransY, Path=Value}"
+                                StartOpacity="{Binding ElementName=sldStartOpacity, Path=Value}"
+                                EndOpacity="{Binding ElementName=sldEndOpacity, Path=Value}"
+                                IsAnimationAutoReverse="{Binding ElementName=chkAutoReverse, Path=IsChecked}"
+                                AnimationRepeatCount="{Binding ElementName=sldRepeatCount, Path=Value}"/>
+            </Border>
+            <CheckBox Name="cbDark" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">Dark background</CheckBox>
+        </Grid>
+    </Grid>
+</UserControl>

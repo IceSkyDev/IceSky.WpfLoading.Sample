@@ -7,6 +7,50 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\DotAnimation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EdgeAnimation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\GridAnimation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\LoadingDesigner.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\MaskPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ShapeAnimation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\TextLoading.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\DotAnimation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EdgeAnimation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GridAnimation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\LoadingDesigner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\MaskPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ShapeAnimation.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\TextLoading.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
