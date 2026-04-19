@@ -37,5 +37,6 @@
                 <local:MaskPanel/>
             </TabItem>
         </TabControl>
+        <Button BorderBrush="Transparent" Background="Transparent" x:Name="btnHelp" Foreground="Blue" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5 0">Help</Button>
     </Grid>
 </Window>

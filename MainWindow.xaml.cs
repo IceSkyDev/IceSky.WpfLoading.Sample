@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,11 @@ namespace IceSky.WpfLoading.Sample
         public MainWindow()
         {
             InitializeComponent();
+            btnHelp.Click += (o, e) =>
+            {
+                var url = "https://iceskydev.github.io/AppDoc/dev/en/WpfLoading.html";
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+            };
         }
     }
 }
